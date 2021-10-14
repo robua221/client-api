@@ -1,0 +1,20 @@
+### user sign up endpoint 
+POST http://localhost:3001/v1/user
+Content-Type: application/json
+
+ {
+    "name":"Ron",
+    "company":"Random company",
+    "address":"Random address",
+    "phone":"0230283293",
+    "email":"ssf@kd",
+    "password":"123fssfsesefsf"
+}
+### user sign up endpoint 
+POST http://localhost:3001/v1/user/login
+Content-Type: application/json
+
+ {
+        "email":"ssf@kd",
+    "password":"123fssfsesefsf"
+}
