@@ -1,14 +1,22 @@
 const express = require("express");
 const { route, post } = require("./ticket.router");
 const router = express.Router();
-const { insertUser, getUserByEmail } = require("../model/user/User.model");
+const { insertUser, getUserByEmail,getUserById} = require("../model/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
-const { json } = require("body-parser");
+const {userAuthorization}=require("../middlewares/authorization.middleware")
 const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt.helper");
 router.all("/", (req, res, next) => {
   // res.json({ message: "return from user router" });
   next();
 });
+
+//get user profile router
+router.get("/",userAuthorization, async(req,res)=>{
+  const _id = req.userId
+const userProf =await getUserById(_id)
+
+res.json({user:userProf})
+})
 
 //create new user route
 router.post("/", async (req, res) => {
@@ -68,3 +76,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
