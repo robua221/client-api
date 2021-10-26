@@ -1,22 +1,29 @@
 const express = require("express");
 const { route, post } = require("./ticket.router");
 const router = express.Router();
-const { insertUser, getUserByEmail,getUserById} = require("../model/user/User.model");
+const {
+  insertUser,
+  getUserByEmail,
+  getUserById,
+} = require("../model/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
-const {userAuthorization}=require("../middlewares/authorization.middleware")
+const {
+  userAuthorization,
+} = require("../middlewares/authorization.middleware");
 const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt.helper");
+const { setPasswordResetPin } = require("../model/reset Pin/resetPin.model");
 router.all("/", (req, res, next) => {
   // res.json({ message: "return from user router" });
   next();
 });
 
 //get user profile router
-router.get("/",userAuthorization, async(req,res)=>{
-  const _id = req.userId
-const userProf =await getUserById(_id)
+router.get("/", userAuthorization, async (req, res) => {
+  const _id = req.userId;
+  const userProf = await getUserById(_id);
 
-res.json({user:userProf})
-})
+  res.json({ user: userProf });
+});
 
 //create new user route
 router.post("/", async (req, res) => {
@@ -75,5 +82,18 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+router.post("/reset-password", async (req, res) => {
+  const { email } = req.body;
+  const user = await getUserByEmail(email);
+  if (user && user._id) {
+    const setPin = await setPasswordResetPin(email);
+    res.json(setPin);
+  }
 
+  res.json({
+    status: "error",
+    message: "if email exists then password reset pin will be send shortly",
+  });
+});
+
+module.exports = router;

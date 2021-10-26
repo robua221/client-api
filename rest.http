@@ -3,21 +3,36 @@ POST http://localhost:3001/v1/user
 Content-Type: application/json
 
  {
-    "name":"Ron",
+    "name":"Rondol",
     "company":"Random company",
     "address":"Random address",
     "phone":"0230283293",
-    "email":"ssf@kd",
+    "email":"ssf@kd2",
     "password":"123fssfsesefsf"
 }
-### user sign up endpoint 
+### user sign in endpoint 
 POST http://localhost:3001/v1/user/login
 Content-Type: application/json
-
  {
         "email":"ssf@kd",
     "password":"123fssfsesefsf"
 }
 ### user profile endpoint 
 GET  http://localhost:3001/v1/user
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhdCI6MTYzNDQ0NDE2OSwiZXhwIjoxNjM0NDQ1MDY5fQ.Vy1ULNvZVkPsp402TP_YAa4Ack5t07Px11ooJtvWs3Y
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhdCI6MTYzNTIzNDA2NywiZXhwIjoxNjM1MjM0OTY3fQ.-YJIom6XHhWr6yPnQoiyI5rmxVK1JL-jhInKDzNamvw
+### get refreshed token
+GET http://localhost:3001/v1/tokens
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhdCI6MTYzNTIzNDE3NSwiZXhwIjoxNjM3ODI2MTc1fQ.H1YFpkQws3DlGjVc-bXPLA_MdexWPIqsm96Iciu-sOA
+###Password reset endpoint
+
+POST http://localhost:3001/v1/user/reset-password
+Content-Type: application/json
+
+ {
+    
+  
+    "email":"ssf@kd2",
+    
+}
+
+ 
