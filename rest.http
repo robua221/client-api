@@ -29,10 +29,8 @@ POST http://localhost:3001/v1/user/reset-password
 Content-Type: application/json
 
  {
-    
-  
-    "email":"ssf@kd2",
-    
+     
+    "email":"ssf@kd2",    
 }
 
  
