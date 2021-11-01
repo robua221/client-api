@@ -18,6 +18,9 @@ const {
   deletePin,
 } = require("../model/reset Pin/resetPin.model");
 const { emailProcessor } = require("../helpers/email.helper");
+const {
+  resetPassReqValidation, updatePassValidation,
+} = require("../middlewares/formValidation.middleware");
 router.all("/", (req, res, next) => {
   // res.json({ message: "return from user router" });
   next();
@@ -88,13 +91,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/reset-password", async (req, res) => {
+router.post("/reset-password", resetPassReqValidation, async (req, res) => {
   const { email } = req.body;
   const user = await getUserByEmail(email);
   if (user && user._id) {
     const setPin = await setPasswordResetPin(email);
-    await emailProcessor({email, pin:setPin.pin,type:"request-new-password"});
-
+    await emailProcessor({
+      email,
+      pin: setPin.pin,
+      type: "request-new-password",
+    });
 
     return res.json({
       status: "success",
@@ -107,7 +113,7 @@ router.post("/reset-password", async (req, res) => {
     message: "if email exists then password reset pin will be send shortly",
   });
 });
-router.patch("/reset-password", async (req, res) => {
+router.patch("/reset-password",updatePassValidation, async (req, res) => {
   const { email, pin, newPassword } = req.body;
   const getPin = await getPinByEmailPin(email, pin);
   if (getPin._id) {
@@ -122,8 +128,8 @@ router.patch("/reset-password", async (req, res) => {
     const hashedPass = await hashPassword(newPassword);
     const user = await updatePassword(email, hashedPass);
     if (user._id) {
-      await emailProcessor({email,type:"password-update-sucess"});
-      deletePin(email,pin)
+      await emailProcessor({ email, type: "password-update-sucess" });
+      deletePin(email, pin);
       return res.json({
         status: "success",
         message: "password changed !! ",
