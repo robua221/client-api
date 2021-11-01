@@ -3,8 +3,8 @@
 const { randomPinNumber } = require("../../utils/randomGenterator");
 const { ResetPinSchema } = require("./ResetPin.schema");
 
-const setPasswordResetPin = async(email) => {
-  const pinlength= 6
+const setPasswordResetPin = async (email) => {
+  const pinlength = 6;
   const randPin = await randomPinNumber(pinlength);
   const restObj = {
     email,
@@ -18,7 +18,41 @@ const setPasswordResetPin = async(email) => {
       .catch((error) => reject(error));
   });
 };
+const getPinByEmailPin = (email, pin) => {
+  return new Promise((resolve, reject) => {
+    try {
+      ResetPinSchema.findOne({ email, pin }, (error, data) => {
+        if (error) {
+          console.log(error);
+          resolve(false);
+        }
+        resolve(data);
+      });
+    } catch (error) {
+      reject(error);
+      console.log(error);
+    }
+  });
+};
+const deletePin = (email, pin) => {
+ 
+    try {
+      ResetPinSchema.findOneAndDelete({ email, pin }, (error, data) => {
+        if (error) {
+          console.log(error);
+          
+        }
+       
+      });
+    } catch (error) {
+ 
+      console.log(error);
+    }
+ 
+};
 
 module.exports = {
   setPasswordResetPin,
+  getPinByEmailPin,
+  deletePin,
 };
