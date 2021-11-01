@@ -7,14 +7,14 @@ Content-Type: application/json
     "company":"Random company",
     "address":"Random address",
     "phone":"0230283293",
-    "email":"ssf@kd2",
+    "email":"ssf@gd.com",
     "password":"123fssfsesefsf"
 }
 ### user sign in endpoint 
 POST http://localhost:3001/v1/user/login
 Content-Type: application/json
  {
-        "email":"ssf@kd2",
+        "email":"ssf@gd.com",
     "password":"password12"
 }
 ### user profile endpoint 
@@ -30,14 +30,17 @@ Content-Type:application/json
 
  {
      
-    "email":"ssf@kd2",    
+    "email":"ssf@gd.com",    
 }
 ### update new password endpoint
 PATCH  http://localhost:3001/v1/user/reset-password
 Content-Type: application/json
 {
-    "email":"ssf@kd2",
+    "email":"ssf@gd.com",
     "pin":319602,
     "newPassword":"passwordds1"
 }
-  
+
+ ### user logout endpoint
+DELETE http://localhost:3001/v1/user/logout
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBnZC5jb20iLCJpYXQiOjE2MzU4MDY4NDUsImV4cCI6MTYzNTgwNzc0NX0.HGJy1fA-MoWpLiM3b9bSs17LtFaMenE4-ZScQXUZkKg

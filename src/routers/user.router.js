@@ -6,6 +6,7 @@ const {
   getUserByEmail,
   getUserById,
   updatePassword,
+  storeUserRefreshJWT,
 } = require("../model/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const {
@@ -19,8 +20,10 @@ const {
 } = require("../model/reset Pin/resetPin.model");
 const { emailProcessor } = require("../helpers/email.helper");
 const {
-  resetPassReqValidation, updatePassValidation,
+  resetPassReqValidation,
+  updatePassValidation,
 } = require("../middlewares/formValidation.middleware");
+const { deleteJWT } = require("../helpers/redis.helper");
 router.all("/", (req, res, next) => {
   // res.json({ message: "return from user router" });
   next();
@@ -113,7 +116,7 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
     message: "if email exists then password reset pin will be send shortly",
   });
 });
-router.patch("/reset-password",updatePassValidation, async (req, res) => {
+router.patch("/reset-password", updatePassValidation, async (req, res) => {
   const { email, pin, newPassword } = req.body;
   const getPin = await getPinByEmailPin(email, pin);
   if (getPin._id) {
@@ -141,5 +144,15 @@ router.patch("/reset-password",updatePassValidation, async (req, res) => {
     message: "unable to update your password . please try again later",
   });
 });
-
+router.delete("/logout",userAuthorization,async (req, res) => {
+  const{authorization}=req.headers
+  const _id = req.userId;
+  deleteJWT(authorization)
+   const result=await storeUserRefreshJWT(_id,'')
+   if(result_id){
+     return res.json({status:"success" ,message:"loged out"})
+   }
+///
+  res.json({status:"error" ,message:"unable to logout"});
+});
 module.exports = router;
