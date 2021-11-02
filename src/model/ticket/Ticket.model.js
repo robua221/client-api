@@ -59,10 +59,30 @@ const updateClientReply = ({ _id, message, sender }) => {
     }
   });
 };
+const updateStatusClose = ({ _id,clientId }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      TicketSchema.findOneAndUpdate(
+        { _id,clientId }, //searching criteria
+        {
+          status: "Closed"
+           
+        }, //value that we want to update
+        { new: true } //see updated value or no
+      )
+
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
   insertTicket,
   getTickets,
   getTicketsById,
   updateClientReply,
+  updateStatusClose
 };

@@ -4,6 +4,7 @@ const {
   getTickets,
   getTicketsById,
   updateClientReply,
+  updateStatusClose
 } = require("../model/ticket/Ticket.model");
 const {
   userAuthorization,
@@ -89,5 +90,27 @@ router.put("/:_id", userAuthorization, async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
+//Update ticket status to close
+
+router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
+  try {
+ 
+    const { _id } = req.params;
+    const clientId = req.userId;
+
+    const result = await updateStatusClose({ _id,clientId});
+    if (result._id) {
+      return res.json({ status: "success", message: "Ticket closed" });
+    }
+    return res.json({
+      status: "error",
+      message: "unable to update ticket",
+    });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
+
 
 module.exports = router;
