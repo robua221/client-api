@@ -1,5 +1,10 @@
 const express = require("express");
-const { insertTicket, getTickets, getTicketsById } = require("../model/ticket/Ticket.model");
+const {
+  insertTicket,
+  getTickets,
+  getTicketsById,
+  updateClientReply,
+} = require("../model/ticket/Ticket.model");
 const {
   userAuthorization,
 } = require("../middlewares/authorization.middleware");
@@ -53,17 +58,36 @@ router.get("/", userAuthorization, async (req, res) => {
 //Get all ticket for a specific user
 
 router.get("/:_id", userAuthorization, async (req, res) => {
-  
-
   try {
-    const {_id}=req.params
+    const { _id } = req.params;
     const clientId = req.userId;
 
-    const result = await getTicketsById(_id,clientId);
+    const result = await getTicketsById(_id, clientId);
 
     return res.json({ status: "success", result });
   } catch (error) {
     res.json({ status: "error", message: error.message });
   }
 });
+//Update  reply message from client
+
+router.put("/:_id", userAuthorization, async (req, res) => {
+  try {
+    const { message, sender } = req.body;
+    const { _id } = req.params;
+    const clientId = req.userId;
+
+    const result = await updateClientReply({ _id, message, sender });
+    if (result._id) {
+      return res.json({ status: "success", message: "message updated" });
+    }
+    return res.json({
+      status: "error",
+      message: "unable to update the message",
+    });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
 module.exports = router;
