@@ -144,15 +144,15 @@ router.patch("/reset-password", updatePassValidation, async (req, res) => {
     message: "unable to update your password . please try again later",
   });
 });
-router.delete("/logout",userAuthorization,async (req, res) => {
-  const{authorization}=req.headers
+router.delete("/logout", userAuthorization, async (req, res) => {
+  const { authorization } = req.headers;
   const _id = req.userId;
-  deleteJWT(authorization)
-   const result=await storeUserRefreshJWT(_id,'')
-   if(result_id){
-     return res.json({status:"success" ,message:"loged out"})
-   }
-///
-  res.json({status:"error" ,message:"unable to logout"});
+  deleteJWT(authorization);
+  const result = await storeUserRefreshJWT(_id, "");
+  if (result._id) {
+    return res.json({ status: "success", message: "loged out" });
+  }
+  ///
+  res.json({ status: "error", message: "unable to logout" });
 });
 module.exports = router;

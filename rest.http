@@ -11,15 +11,16 @@ Content-Type: application/json
     "password":"123fssfsesefsf"
 }
 ### user sign in endpoint 
-POST http://localhost:3001/v1/user/login
+POST  http://localhost:3001/v1/user/login
 Content-Type: application/json
+
  {
-        "email":"ssf@gd.com",
-    "password":"password12"
+    "email":"ssf@gd.com",
+    "password":"password123"
 }
 ### user profile endpoint 
 GET  http://localhost:3001/v1/user
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhdCI6MTYzNTIzNDA2NywiZXhwIjoxNjM1MjM0OTY3fQ.-YJIom6XHhWr6yPnQoiyI5rmxVK1JL-jhInKDzNamvw
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBnZC5jb20iLCJpYXQiOjE2MzU4NjM3NjgsImV4cCI6MTYzNTg2NDk2OH0.xpljhqolszHTWjasf0VT96oVHJzkG-R-Z7Cf0PehMwU
 ### get refreshed token
 GET http://localhost:3001/v1/tokens
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhdCI6MTYzNTIzNDE3NSwiZXhwIjoxNjM3ODI2MTc1fQ.H1YFpkQws3DlGjVc-bXPLA_MdexWPIqsm96Iciu-sOA
@@ -28,19 +29,13 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBrZCIsImlhd
 POST http://localhost:3001/v1/user/reset-password
 Content-Type:application/json
 
- {
-     
-    "email":"ssf@gd.com",    
-}
+ { "email":"ssf@gd.com"}
 ### update new password endpoint
 PATCH  http://localhost:3001/v1/user/reset-password
 Content-Type: application/json
-{
-    "email":"ssf@gd.com",
-    "pin":319602,
-    "newPassword":"passwordds1"
-}
 
- ### user logout endpoint
+{ "email":"ssf@gd.com", "pin":157284, "newPassword":"password123"}
+
+### user logout endpoint
 DELETE http://localhost:3001/v1/user/logout
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBnZC5jb20iLCJpYXQiOjE2MzU4MDY4NDUsImV4cCI6MTYzNTgwNzc0NX0.HGJy1fA-MoWpLiM3b9bSs17LtFaMenE4-ZScQXUZkKg
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzZkBnZC5jb20iLCJpYXQiOjE2MzU4NjQ0MjQsImV4cCI6MTYzNTg2NTYyNH0.8YtkULyuncI0w1_ad_GR9a4JqFZnhjuvKmJHKvLrZXo

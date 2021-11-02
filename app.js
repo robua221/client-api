@@ -1,5 +1,5 @@
 require("dotenv").config();
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 //Set bodyParser
-
+ 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -49,7 +49,7 @@ app.use("/v1/tokens", tokensRouter);
 
 //Error Handler
 const handleError = require("./src/utils/errorHandler");
-app.use("*", (req, res,next) => {
+app.use((req, res,next) => {
   const error = new Error("resources not found");
   error.status = 404;
   next(error);
