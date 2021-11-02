@@ -4,7 +4,8 @@ const {
   getTickets,
   getTicketsById,
   updateClientReply,
-  updateStatusClose
+  updateStatusClose,
+  deleteTicket,
 } = require("../model/ticket/Ticket.model");
 const {
   userAuthorization,
@@ -90,15 +91,15 @@ router.put("/:_id", userAuthorization, async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
+
 //Update ticket status to close
 
 router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
   try {
- 
     const { _id } = req.params;
     const clientId = req.userId;
 
-    const result = await updateStatusClose({ _id,clientId});
+    const result = await updateStatusClose({ _id, clientId });
     if (result._id) {
       return res.json({ status: "success", message: "Ticket closed" });
     }
@@ -110,7 +111,19 @@ router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
+//Delete ticket
 
+router.delete("/close-ticket/:_id", userAuthorization, async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const clientId = req.userId;
 
+    const result = await deleteTicket({ _id, clientId });
+console.log(result)
+    return res.json({ status: "success", message: "Ticket Deleted" });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
 
 module.exports = router;
