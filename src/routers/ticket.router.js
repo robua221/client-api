@@ -113,13 +113,13 @@ router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
 });
 //Delete ticket
 
-router.delete("/close-ticket/:_id", userAuthorization, async (req, res) => {
+router.delete("/:_id", userAuthorization, async (req, res) => {
   try {
     const { _id } = req.params;
     const clientId = req.userId;
 
     const result = await deleteTicket({ _id, clientId });
-console.log(result)
+    console.log(result);
     return res.json({ status: "success", message: "Ticket Deleted" });
   } catch (error) {
     res.json({ status: "error", message: error.message });
