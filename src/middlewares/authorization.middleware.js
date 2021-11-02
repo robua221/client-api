@@ -2,7 +2,7 @@ const { verifyAccessJwt } = require("../helpers/jwt.helper");
 const { getJWT, deleteJWT } = require("../helpers/redis.helper");
 
 const userAuthorization = async (req, res, next) => {
-  const { authorization } = req.headers;
+  const { authorization } = req.headers;//jwt header
 
   const decoded = await verifyAccessJwt(authorization);
   
